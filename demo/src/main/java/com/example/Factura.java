@@ -8,9 +8,10 @@ public class Factura extends Registro {
     private boolean conIVA;
     private String fecha;
     private String consumidorFinal;
+    private Integer ID;
 
     // CONSTRUCTOR
-    public Factura(String descripcion, double valor, boolean conIVA, String fecha, String consumidorFinal) {
+    public Factura(String descripcion, double valor, boolean conIVA, String fecha, String consumidorFinal,Integer ID) {
 
         //EN EL SUPER USAMOS UN OPERADOR TERM¿NARIO PARA DARLE EL VALOR AGREGADO DEL IVA AL VALOR "INICIAL" DE LA FACTURA SIEMPRE ICUANDO SE INDIQUE 
 
@@ -18,10 +19,19 @@ public class Factura extends Registro {
         this.conIVA = conIVA;
         this.fecha = fecha;
         this.consumidorFinal = consumidorFinal;
+        this.ID=ID;
+    }
+    //GETTER Y SETTER PARA ID
+    public Integer getID(){
+        return ID;
+    }
+
+    public void setID(Integer ID){
+        this.ID=ID;
     }
 
     // Getter y Setter para conIVA
-    public boolean isConIVA() {
+    public boolean getConIVA() {
         return conIVA;
     }
 
@@ -51,6 +61,7 @@ public class Factura extends Registro {
 @Override
 public void mostrar(){
 System.out.println("-----FACTURA------");
+System.out.println("ID:" +  getID());
 System.out.println("Descripcion" + getDescripcion());
 System.out.println("Fecha : " + fecha);
 System.out.println("Valor Con IVA:" + getValor());

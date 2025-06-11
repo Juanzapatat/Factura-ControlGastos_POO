@@ -32,12 +32,13 @@ public class ControlGastos {
     }
 
     // Permite registrar un gasto si hay suficiente saldo
-    public void registrarGasto(Gasto gasto) {
-        if (gasto.getValor() > saldo) {
+    public void registrarGasto(String descripcion, double valor, String fecha) {
+        if (valor > saldo) {
             System.out.println("Fondos insuficientes.");
         } else {
+            Gasto gasto = new Gasto(descripcion, valor, fecha); // Usa constructor actualizado
             gastos.add(gasto);
-            saldo -= gasto.getValor();
+            saldo -= valor;
             System.out.println("Gasto registrado correctamente.");
         }
     }
@@ -56,3 +57,4 @@ public class ControlGastos {
         System.out.println("Saldo actual: " + saldo);
     }
 }
+

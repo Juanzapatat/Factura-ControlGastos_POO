@@ -1,172 +1,226 @@
-package com.example;
+// package com.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+// import java.util.List;
+// import java.util.Scanner;
 
-/**
- * Representa el menú principal del sistema.
- * Controla el flujo de autenticación, menú de facturas y menú de gastos.
- */
+// import com.example.DAO.FacturaDAO;
+// import com.example.DAO.GastoDAO;
 
- 
-public class MenuSistema {
-       private Scanner sc = new Scanner(System.in);
-    private Usuario usuario = new Usuario("CESDE", "1230"); // Usuario predeterminado
+// public class MenuSistema {
+//     private Scanner sc = new Scanner(System.in);
+//     private Usuario usuario = new Usuario("CESDE", "1230");
 
-    public void iniciar() {
-        if (login()) {
-            mostrarMenu();
-        }
-    }
+//     private FacturaDAO facturaDAO = new FacturaDAO();
+//     private GastoDAO gastoDAO = new GastoDAO();
 
-    // Solicita credenciales hasta que sean correctas
-    private boolean login() {
-        while (true) {
-            System.out.print("Ingrese usuario: ");
-            String u = sc.nextLine();
+//     private double saldo = 0;
 
-            System.out.print("Ingrese contraseña: ");
-            String p = sc.nextLine();
+//     public void iniciar() {
+//         if (login()) {
+//             mostrarMenu();
+//         }
+//     }
 
-            if (usuario.autenticar(u, p)) {
-                System.out.println("Bienvenido al sistema.");
-                return true;
-            } else {
-                System.out.println("Credenciales incorrectas. Intente nuevamente.");
-            }
-        }
-    }
+//     private boolean login() {
+//         while (true) {
+//             System.out.print("Ingrese usuario: ");
+//             String u = sc.nextLine();
 
-    // Muestra menú principal con opciones
-    private void mostrarMenu() {
-        while (true) {
-            System.out.println("\n--- MENÚ PRINCIPAL ---");
-            System.out.println("1. Registro de Facturas");
-            System.out.println("2. Control de Gastos");
-            System.out.println("3. Salir");
+//             System.out.print("Ingrese contraseña: ");
+//             String p = sc.nextLine();
 
-            System.out.print("Seleccione una opción: ");
-            int opcion = Integer.parseInt(sc.nextLine());
+//             if (usuario.autenticar(u, p)) {
+//                 System.out.println("✅ Bienvenido al sistema.");
+//                 return true;
+//             } else {
+//                 System.out.println("❌ Credenciales incorrectas. Intente nuevamente.");
+//             }
+//         }
+//     }
 
-            switch (opcion) {
-                case 1:
-                    menuFacturas();
-                    break;
-                case 2:
-                    menuControlGastos();
-                    break;
-                case 3:
-                    System.out.println("Gracias por usar el sistema.");
-                    return;
-                default:
-                    System.out.println("Opción inválida.");
-            }
-        }
-    }
+//     private void mostrarMenu() {
+//         while (true) {
+//             System.out.println("\n--- MENÚ PRINCIPAL ---");
+//             System.out.println("1. CRUD Facturas");
+//             System.out.println("2. CRUD Gastos");
+//             System.out.println("3. Salir");
 
-    // Submenú para registrar y ver facturas
-    private void menuFacturas() {
-        List<Factura> facturas = new ArrayList<>();
+//             System.out.print("Seleccione una opción: ");
+//             int opcion = Integer.parseInt(sc.nextLine());
 
-        while (true) {
-            System.out.println("\n--- MENÚ FACTURAS ---");
-            System.out.println("1. Registrar nueva factura");
-            System.out.println("2. Ver facturas registradas");
-            System.out.println("3. Volver al menú principal");
+//             switch (opcion) {
+//                 case 1 -> menuFacturas();
+//                 case 2 -> menuGastos();
+//                 case 3 -> {
+//                     System.out.println("👋 Gracias por usar el sistema.");
+//                     return;
+//                 }
+//                 default -> System.out.println("⚠️ Opción inválida.");
+//             }
+//         }
+//     }
 
-            int opcion = Integer.parseInt(sc.nextLine());
+//     private void menuFacturas() {
+//         while (true) {
+//             System.out.println("\n--- CRUD FACTURAS ---");
+//             System.out.println("1. Registrar nueva factura");
+//             System.out.println("2. Ver facturas");
+//             System.out.println("3. Actualizar factura");
+//             System.out.println("4. Eliminar factura");
+//             System.out.println("5. Volver");
 
-            switch (opcion) {
-                case 1:
-                    // Solicita datos de la factura
-                    System.out.print("Descripción: ");
-                    String descripcion = sc.nextLine();
+//             System.out.print("Seleccione una opción: ");
+//             int opcion = Integer.parseInt(sc.nextLine());
 
-                    System.out.print("Valor de la factura: ");
-                    double valor = Double.parseDouble(sc.nextLine());
+//             switch (opcion) {
+//                 case 1 -> {
+//                     System.out.print("Descripción: ");
+//                     String descripcion = sc.nextLine();
 
-                    System.out.print("¿Agregar IVA del 19%? (si/no): ");
-                    boolean conIVA = sc.nextLine().equalsIgnoreCase("si");
+//                     System.out.print("Valor: ");
+//                     double valor = Double.parseDouble(sc.nextLine());
 
-                    System.out.print("Fecha (dd/mm/aaaa): ");
-                    String fecha = sc.nextLine();
+//                     System.out.print("¿Agregar IVA del 19%? (si/no): ");
+//                     boolean conIVA = sc.nextLine().equalsIgnoreCase("si");
 
-                    System.out.print("Consumidor final: ");
-                    String consumidor = sc.nextLine();
+//                     System.out.print("Fecha (dd/mm/aaaa): ");
+//                     String fecha = sc.nextLine();
 
-                    // Crea la factura y la guarda
-                    Factura factura = new Factura(descripcion, valor, conIVA, fecha, consumidor);
-                    facturas.add(factura);
+//                     System.out.print("Consumidor final: ");
+//                     String consumidor = sc.nextLine();
 
-                    System.out.println("Factura registrada correctamente.");
-                    break;
+//                     Factura f = new Factura(descripcion, valor, conIVA, fecha, consumidor, null);
+//                     facturaDAO.insertar(f);
+//                 }
 
-                case 2:
-                    // Muestra todas las facturas registradas
-                    if (facturas.isEmpty()) {
-                        System.out.println("No hay facturas registradas.");
-                    } else {
-                        for (Factura f : facturas) {
-                            f.mostrar();
-                            System.out.println();
-                        }
-                    }
-                    break;
+//                 case 2 -> {
+//                     List<Factura> facturas = facturaDAO.listar();
+//                     for (Factura f : facturas) {
+//                         f.mostrar();
+//                         System.out.println();
+//                     }
+//                 }
 
-                case 3:
-                    // Vuelve al menú principal
-                    return;
+//                 case 3 -> {
+//                     System.out.print("ID de la factura a actualizar: ");
+//                     int id = Integer.parseInt(sc.nextLine());
 
-                default:
-                    System.out.println("Opción inválida.");
-            }
-        }
-    }
+//                     System.out.print("Nueva descripción: ");
+//                     String descripcion = sc.nextLine();
 
-    // Submenú para controlar gastos y saldo
-    private void menuControlGastos() {
-        System.out.print("Ingrese el saldo inicial: ");
-        double saldoInicial = Double.parseDouble(sc.nextLine());
+//                     System.out.print("Nuevo valor: ");
+//                     double valor = Double.parseDouble(sc.nextLine());
 
-        ControlGastos control = new ControlGastos(saldoInicial);
+//                     System.out.print("¿Agregar IVA del 19%? (si/no): ");
+//                     boolean conIVA = sc.nextLine().equalsIgnoreCase("si");
 
-        while (true) {
-            System.out.println("\n--- MENÚ GASTOS ---");
-            System.out.println("1. Registrar gasto");
-            System.out.println("2. Recargar saldo");
-            System.out.println("3. Ver gastos y saldo");
-            System.out.println("4. Volver al menú principal");
+//                     System.out.print("Nueva fecha (dd/mm/aaaa): ");
+//                     String fecha = sc.nextLine();
 
-            int opcion = Integer.parseInt(sc.nextLine());
+//                     System.out.print("Nuevo consumidor final: ");
+//                     String consumidor = sc.nextLine();
 
-            switch (opcion) {
-                case 1:
-                    System.out.print("Descripción del gasto: ");
-                    String descripcion = sc.nextLine();
+//                     Factura f = new Factura(descripcion, valor, conIVA, fecha, consumidor, id);
+//                     f.setID(id);
+//                     facturaDAO.actualizar(f);
+//                 }
 
-                    System.out.print("Valor del gasto: ");
-                    double valor = Double.parseDouble(sc.nextLine());
+//                 case 4 -> {
+//                     System.out.print("ID de la factura a eliminar: ");
+//                     int id = Integer.parseInt(sc.nextLine());
+//                     facturaDAO.eliminar(id);
+//                 }
 
-                    control.registrarGasto(new Gasto(descripcion, valor));
-                    break;
+//                 case 5 -> {
+//                     return;
+//                 }
 
-                case 2:
-                    System.out.print("Monto a recargar: ");
-                    double recarga = Double.parseDouble(sc.nextLine());
-                    control.recargarSaldo(recarga);
-                    break;
+//                 default -> System.out.println("⚠️ Opción inválida.");
+//             }
+//         }
+//     }
 
-                case 3:
-                    control.mostrarGastos();
-                    break;
+//     private void menuGastos() {
+//         while (true) {
+//             System.out.println("\n--- CRUD GASTOS ---");
+//             System.out.println("1. Registrar gasto");
+//             System.out.println("2. Ver gastos");
+//             System.out.println("3. Actualizar gasto");
+//             System.out.println("4. Eliminar gasto");
+//             System.out.println("5. Recargar saldo");
+//             System.out.println("6. Ver saldo actual");
+//             System.out.println("7. Volver");
 
-                case 4:
-                    return;
+//             System.out.print("Seleccione una opción: ");
+//             int opcion = Integer.parseInt(sc.nextLine());
 
-                default:
-                    System.out.println("Opción inválida.");
-            }
-        }
-    }
-}
+//             switch (opcion) {
+//                 case 1 -> {
+//                     System.out.print("Descripción: ");
+//                     String descripcion = sc.nextLine();
+
+//                     System.out.print("Valor: ");
+//                     double valor = Double.parseDouble(sc.nextLine());
+
+//                     if (valor > saldo) {
+//                         System.out.println("❌ Fondos insuficientes.");
+//                     } else {
+//                         System.out.print("Fecha (dd/mm/aaaa): ");
+//                         String fecha = sc.nextLine();
+
+//                         Gasto g = new Gasto(descripcion, valor, fecha);
+//                         gastoDAO.insertar(g);
+//                         saldo -= valor;
+//                     }
+//                 }
+
+//                 case 2 -> {
+//                     List<Gasto> lista = gastoDAO.listar();
+//                     for (Gasto g : lista) {
+//                         g.mostrar();
+//                         System.out.println();
+//                     }
+//                 }
+
+//                 case 3 -> {
+//                     System.out.print("ID del gasto a actualizar: ");
+//                     int id = Integer.parseInt(sc.nextLine());
+
+//                     System.out.print("Nueva descripción: ");
+//                     String descripcion = sc.nextLine();
+
+//                     System.out.print("Nuevo valor: ");
+//                     double valor = Double.parseDouble(sc.nextLine());
+
+//                     System.out.print("Nueva fecha (dd/mm/aaaa): ");
+//                     String fecha = sc.nextLine();
+
+//                     Gasto g = new Gasto(descripcion, valor, fecha);
+//                     g.setId(id);
+//                     gastoDAO.actualizar(g);
+//                 }
+
+//                 case 4 -> {
+//                     System.out.print("ID del gasto a eliminar: ");
+//                     int id = Integer.parseInt(sc.nextLine());
+//                     gastoDAO.eliminar(id);
+//                 }
+
+//                 case 5 -> {
+//                     System.out.print("Monto a recargar: ");
+//                     double recarga = Double.parseDouble(sc.nextLine());
+//                     saldo += recarga;
+//                     System.out.println("💰 Saldo recargado.");
+//                 }
+
+//                 case 6 -> System.out.println("Saldo actual: " + saldo);
+
+//                 case 7 -> {
+//                     return;
+//                 }
+
+//                 default -> System.out.println("⚠️ Opción inválida.");
+//             }
+//         }
+//     }
+// }
